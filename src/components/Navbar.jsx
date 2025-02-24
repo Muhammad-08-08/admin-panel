@@ -1,8 +1,10 @@
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import { Link } from "react-router";
+import useMyStore from "../store/my-store";
 
 function Navbar({ collapsed, setCollapsed }) {
+  const state = useMyStore();
   return (
     <div className="w-full h-20 bg-slate-900 text-white flex justify-between items-center px-10">
       <div className="flex gap-2 items-center">
@@ -20,7 +22,7 @@ function Navbar({ collapsed, setCollapsed }) {
           </h1>
         </Link>
       </div>
-      <h2 className="text-3xl font-mono">Avatar</h2>
+      <h2 className="text-3xl font-mono">{state.user.username}</h2>
     </div>
   );
 }
