@@ -26,6 +26,11 @@ function LoginPage() {
                   token: response.data.token,
                   user: response.data.user,
                 });
+
+                localStorage.setItem(
+                  "yangi_panel",
+                  JSON.stringify(response.data)
+                );
               })
               .catch((e) => {
                 console.log(e);

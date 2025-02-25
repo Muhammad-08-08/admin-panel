@@ -1,5 +1,11 @@
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import {
+  LogoutOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  SettingOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import { Avatar, Button, Dropdown } from "antd";
 import { Link } from "react-router";
 import useMyStore from "../store/my-store";
 
@@ -22,7 +28,48 @@ function Navbar({ collapsed, setCollapsed }) {
           </h1>
         </Link>
       </div>
-      <h2 className="text-3xl font-mono">{state.user.username}</h2>
+      <Dropdown
+        menu={{
+          items: [
+            {
+              key: 1,
+              label: "Sozlamalar",
+              icon: <SettingOutlined />,
+            },
+            {
+              key: 2,
+              label: "profilim",
+              icon: <UserOutlined />,
+            },
+            {
+              key: 3,
+              label: "chiqish",
+              danger: true,
+              icon: <LogoutOutlined />,
+              onClick: () => {
+                useMyStore.setState({
+                  token: "",
+                  user: null,
+                });
+                localStorage.removeItem("yangi_panel");
+              },
+            },
+          ],
+        }}
+        placement="bottomLeft"
+      >
+        <div className="flex gap-2 items-center">
+          <div>
+            <Avatar size={64} icon={<UserOutlined />} />
+          </div>
+          <div>
+            <p>
+              {state.user.firstName} {state.user.lastName}
+            </p>
+            <p>@{state.user.username}</p>
+          </div>
+        </div>
+      </Dropdown>
     </div>
   );
 }
